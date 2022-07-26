@@ -5,7 +5,7 @@ function isNum(n) {
 
 const CHECK_ORDER_UPDATE_TIME = 30000;
 
-const isEu = window.location.href.match('game=2522') ||  window.location.href.match('game=27815');
+const isEu = window.location.href.match('game=2522') ||  window.location.href.match('game=27815'); // if true - EU, otherwise - US
 var paused = false;
 var US_GOLD = "wow-us/gold-2299-19249";
 var EU_GOLD = "wow-eu/gold-2522-19248";
