@@ -18,7 +18,7 @@ var monitorMin = {};
 var parseIv;
 var myUserName;
 var servers = {};
-function getDoc(url,onLoad) {
+function getDoc(url,onLoad) { // service function to do queries
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -28,10 +28,10 @@ function getDoc(url,onLoad) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-function saveListing(argument) {
+function saveListing(argument) { // helper function to save <____> to local storage
     localStorage.setItem('listingMin',JSON.stringify(activeListing))
 }
-function saveMonitor(argument) {
+function saveMonitor(argument) {  // helper function to save <____> to local storage
     localStorage.setItem('monitorMin',JSON.stringify(monitorMin))
 }
 function setMin(id,minAccepter) {
@@ -355,7 +355,7 @@ function extractServers(country,data) {
     var sMap = srvs.reduce( (acc,next) => {return acc[next.name] = next.id, acc} ,{})
     servers[country] = sMap;
 }
-function init() {
+function init() { // script entrypoint
     myUserName = $('.header__profile-name').text().trim();
     const lastBans = localStorage.getItem('#parser_banned');
     const lastQtyBan = localStorage.getItem('#parser_banned_qty');
@@ -376,15 +376,15 @@ function init() {
     if(lastBans) $('#parser_banned').val(lastBans);
     if(lastQtyBan) $('#parser_banned_qty').val(lastQtyBan);
     if(lastQtyBanCl) $('#parser_banned_qty_c').val(lastQtyBanCl);
-    $("#parser_pause").click(function() { paused = true; })
-    $("#parser_resume").click(function() { paused = false; })
-    $("#parser_banned").blur(function() {
+    $("#parser_pause").click(function() { paused = true; }) // parser pause
+    $("#parser_resume").click(function() { paused = false; }) // parser resume
+    $("#parser_banned").blur(function() { // save banned users input value
         localStorage.setItem('#parser_banned',$('#parser_banned').val());
     })
-    $("#parser_banned_qty").on('blur change',function() {
+    $("#parser_banned_qty").on('blur change',function() { // ban price limit wow main
         localStorage.setItem('#parser_banned_qty',$('#parser_banned_qty').val());
     })
-    $("#parser_banned_qty_c").on('blur change',function() {
+    $("#parser_banned_qty_c").on('blur change',function() { // ban price limit wow classic
         localStorage.setItem('#parser_banned_qty_c',$('#parser_banned_qty_c').val());
     })
     getDoc("https://www.g2g.com/"+(isClassic()?(isEu?EU_GOLD_CL:US_GOLD_CL):(isEu?EU_GOLD:US_GOLD)),function(data) {
